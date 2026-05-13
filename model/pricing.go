@@ -36,6 +36,15 @@ type Pricing struct {
 	BillingMode            string                  `json:"billing_mode,omitempty"`
 	BillingExpr            string                  `json:"billing_expr,omitempty"`
 	PricingVersion         string                  `json:"pricing_version,omitempty"`
+	// Model metadata — set by admin in models table; zero values omitted so
+	// the frontend inference layer remains the fallback when not set.
+	ContextLength    int    `json:"context_length,omitempty"`
+	MaxOutputTokens  int    `json:"max_output_tokens,omitempty"`
+	KnowledgeCutoff  string `json:"knowledge_cutoff,omitempty"`
+	ReleaseDate      string `json:"release_date,omitempty"`
+	Capabilities     string `json:"capabilities,omitempty"`
+	InputModalities  string `json:"input_modalities,omitempty"`
+	OutputModalities string `json:"output_modalities,omitempty"`
 }
 
 type PricingVendor struct {
@@ -303,6 +312,13 @@ func updatePricing() {
 			pricing.Icon = meta.Icon
 			pricing.Tags = meta.Tags
 			pricing.VendorID = meta.VendorID
+			pricing.ContextLength = meta.ContextLength
+			pricing.MaxOutputTokens = meta.MaxOutputTokens
+			pricing.KnowledgeCutoff = meta.KnowledgeCutoff
+			pricing.ReleaseDate = meta.ReleaseDate
+			pricing.Capabilities = meta.Capabilities
+			pricing.InputModalities = meta.InputModalities
+			pricing.OutputModalities = meta.OutputModalities
 		}
 		modelPrice, findPrice := ratio_setting.GetModelPrice(model, false)
 		if findPrice {

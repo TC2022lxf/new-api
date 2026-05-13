@@ -34,6 +34,16 @@ type Model struct {
 	UpdatedTime  int64          `json:"updated_time" gorm:"bigint"`
 	DeletedAt    gorm.DeletedAt `json:"-" gorm:"index;uniqueIndex:uk_model_name_delete_at,priority:2"`
 
+	// Model metadata fields — maintained by admin, returned to frontend via /api/pricing.
+	// Zero/empty values mean "not set"; frontend falls back to client-side inference.
+	ContextLength    int    `json:"context_length,omitempty" gorm:"default:0"`
+	MaxOutputTokens  int    `json:"max_output_tokens,omitempty" gorm:"default:0"`
+	KnowledgeCutoff  string `json:"knowledge_cutoff,omitempty" gorm:"type:varchar(16)"`
+	ReleaseDate      string `json:"release_date,omitempty" gorm:"type:varchar(16)"`
+	Capabilities     string `json:"capabilities,omitempty" gorm:"type:varchar(512)"`
+	InputModalities  string `json:"input_modalities,omitempty" gorm:"type:varchar(128)"`
+	OutputModalities string `json:"output_modalities,omitempty" gorm:"type:varchar(128)"`
+
 	BoundChannels []BoundChannel `json:"bound_channels,omitempty" gorm:"-"`
 	EnableGroups  []string       `json:"enable_groups,omitempty" gorm:"-"`
 	QuotaTypes    []int          `json:"quota_types,omitempty" gorm:"-"`
@@ -77,7 +87,8 @@ func (mi *Model) Update() error {
 	mi.UpdatedTime = common.GetTimestamp()
 	// 使用 Select 强制更新所有字段，包括零值
 	return DB.Model(&Model{}).Where("id = ?", mi.Id).
-		Select("model_name", "description", "icon", "tags", "vendor_id", "endpoints", "status", "sync_official", "name_rule", "updated_time").
+		Select("model_name", "description", "icon", "tags", "vendor_id", "endpoints", "status", "sync_official", "name_rule", "updated_time",
+			"context_length", "max_output_tokens", "knowledge_cutoff", "release_date", "capabilities", "input_modalities", "output_modalities").
 		Updates(mi).Error
 }
 

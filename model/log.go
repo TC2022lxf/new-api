@@ -488,6 +488,20 @@ func SumUsedQuota(logType int, startTimestamp int64, endTimestamp int64, modelNa
 	return stat, nil
 }
 
+// CountConsumedLogs returns the number of consume-type log entries in [startTs, endTs].
+func CountConsumedLogs(startTs int64, endTs int64) int64 {
+	var count int64
+	db := LOG_DB.Table("logs").Where("type = ?", LogTypeConsume)
+	if startTs != 0 {
+		db = db.Where("created_at >= ?", startTs)
+	}
+	if endTs != 0 {
+		db = db.Where("created_at <= ?", endTs)
+	}
+	db.Count(&count)
+	return count
+}
+
 func SumUsedToken(logType int, startTimestamp int64, endTimestamp int64, modelName string, username string, tokenName string) (token int) {
 	tx := LOG_DB.Table("logs").Select("ifnull(sum(prompt_tokens),0) + ifnull(sum(completion_tokens),0)")
 	if username != "" {
