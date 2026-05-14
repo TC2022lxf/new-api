@@ -36,6 +36,9 @@ type Pricing struct {
 	BillingMode            string                  `json:"billing_mode,omitempty"`
 	BillingExpr            string                  `json:"billing_expr,omitempty"`
 	PricingVersion         string                  `json:"pricing_version,omitempty"`
+	// ChannelType is the dominant channels.type among enabled abilities for this
+	// model (same numeric IDs as constant.ChannelType). Used for provider logos on /pricing.
+	ChannelType int `json:"channel_type,omitempty"`
 	// Model metadata — set by admin in models table; zero values omitted so
 	// the frontend inference layer remains the fallback when not set.
 	ContextLength    int    `json:"context_length,omitempty"`
@@ -198,6 +201,7 @@ func updatePricing() {
 	}
 
 	modelGroupsMap := make(map[string]*types.Set[string])
+	modelChannelTypeCounts := make(map[string]map[int]int)
 
 	for _, ability := range enableAbilities {
 		groups, ok := modelGroupsMap[ability.Model]
@@ -206,6 +210,10 @@ func updatePricing() {
 			modelGroupsMap[ability.Model] = groups
 		}
 		groups.Add(ability.Group)
+		if modelChannelTypeCounts[ability.Model] == nil {
+			modelChannelTypeCounts[ability.Model] = make(map[int]int)
+		}
+		modelChannelTypeCounts[ability.Model][ability.ChannelType]++
 	}
 
 	//这里使用切片而不是Set，因为一个模型可能支持多个端点类型，并且第一个端点是优先使用端点
@@ -353,6 +361,9 @@ func updatePricing() {
 				pricing.BillingExpr = expr
 			}
 		}
+		if counts, ok := modelChannelTypeCounts[model]; ok && len(counts) > 0 {
+			pricing.ChannelType = dominantChannelTypeForPricing(counts)
+		}
 		pricingMap = append(pricingMap, pricing)
 	}
 
@@ -372,6 +383,25 @@ func updatePricing() {
 	modelEnableGroupsLock.Unlock()
 
 	lastGetPricingTime = time.Now()
+}
+
+// dominantChannelTypeForPricing picks the most common channels.type for a model's
+// enabled abilities; tie-break to the smaller type id (stable, deterministic).
+func dominantChannelTypeForPricing(counts map[int]int) int {
+	if len(counts) == 0 {
+		return 0
+	}
+	var bestT int
+	var bestC int
+	first := true
+	for t, c := range counts {
+		if first || c > bestC || (c == bestC && t < bestT) {
+			bestT = t
+			bestC = c
+			first = false
+		}
+	}
+	return bestT
 }
 
 // GetSupportedEndpointMap 返回全局端点到路径的映射
