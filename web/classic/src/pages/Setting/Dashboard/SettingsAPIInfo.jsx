@@ -166,11 +166,11 @@ const SettingsAPIInfo = ({ options, refresh }) => {
         );
       } else {
         const newId = Math.max(...apiInfoList.map((api) => api.id), 0) + 1;
-        const newApi = {
+        const FocusAPI = {
           id: newId,
           ...apiForm,
         };
-        newList = [...apiInfoList, newApi];
+        newList = [...apiInfoList, FocusAPI];
       }
 
       setApiInfoList(newList);

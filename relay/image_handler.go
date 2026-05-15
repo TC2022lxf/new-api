@@ -20,7 +20,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func ImageHelper(c *gin.Context, info *relaycommon.RelayInfo) (newAPIError *types.NewAPIError) {
+func ImageHelper(c *gin.Context, info *relaycommon.RelayInfo) (FocusAPIError *types.FocusAPIError) {
 	info.InitChannelMeta(c)
 
 	imageReq, ok := info.Request.(*dto.ImageRequest)
@@ -72,7 +72,7 @@ func ImageHelper(c *gin.Context, info *relaycommon.RelayInfo) (newAPIError *type
 			if len(info.ParamOverride) > 0 {
 				jsonData, err = relaycommon.ApplyParamOverrideWithRelayInfo(jsonData, info)
 				if err != nil {
-					return newAPIErrorFromParamOverride(err)
+					return FocusAPIErrorFromParamOverride(err)
 				}
 			}
 
@@ -98,19 +98,19 @@ func ImageHelper(c *gin.Context, info *relaycommon.RelayInfo) (newAPIError *type
 				// replicate channel returns 201 Created when using Prefer: wait, treat it as success.
 				httpResp.StatusCode = http.StatusOK
 			} else {
-				newAPIError = service.RelayErrorHandler(c.Request.Context(), httpResp, false)
+				FocusAPIError = service.RelayErrorHandler(c.Request.Context(), httpResp, false)
 				// reset status code 重置状态码
-				service.ResetStatusCode(newAPIError, statusCodeMappingStr)
-				return newAPIError
+				service.ResetStatusCode(FocusAPIError, statusCodeMappingStr)
+				return FocusAPIError
 			}
 		}
 	}
 
-	usage, newAPIError := adaptor.DoResponse(c, httpResp, info)
-	if newAPIError != nil {
+	usage, FocusAPIError := adaptor.DoResponse(c, httpResp, info)
+	if FocusAPIError != nil {
 		// reset status code 重置状态码
-		service.ResetStatusCode(newAPIError, statusCodeMappingStr)
-		return newAPIError
+		service.ResetStatusCode(FocusAPIError, statusCodeMappingStr)
+		return FocusAPIError
 	}
 
 	imageN := uint(1)

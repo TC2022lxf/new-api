@@ -17,7 +17,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func EmbeddingHelper(c *gin.Context, info *relaycommon.RelayInfo) (newAPIError *types.NewAPIError) {
+func EmbeddingHelper(c *gin.Context, info *relaycommon.RelayInfo) (FocusAPIError *types.FocusAPIError) {
 	info.InitChannelMeta(c)
 
 	embeddingReq, ok := info.Request.(*dto.EmbeddingRequest)
@@ -54,7 +54,7 @@ func EmbeddingHelper(c *gin.Context, info *relaycommon.RelayInfo) (newAPIError *
 	if len(info.ParamOverride) > 0 {
 		jsonData, err = relaycommon.ApplyParamOverrideWithRelayInfo(jsonData, info)
 		if err != nil {
-			return newAPIErrorFromParamOverride(err)
+			return FocusAPIErrorFromParamOverride(err)
 		}
 	}
 
@@ -70,18 +70,18 @@ func EmbeddingHelper(c *gin.Context, info *relaycommon.RelayInfo) (newAPIError *
 	if resp != nil {
 		httpResp = resp.(*http.Response)
 		if httpResp.StatusCode != http.StatusOK {
-			newAPIError = service.RelayErrorHandler(c.Request.Context(), httpResp, false)
+			FocusAPIError = service.RelayErrorHandler(c.Request.Context(), httpResp, false)
 			// reset status code 重置状态码
-			service.ResetStatusCode(newAPIError, statusCodeMappingStr)
-			return newAPIError
+			service.ResetStatusCode(FocusAPIError, statusCodeMappingStr)
+			return FocusAPIError
 		}
 	}
 
-	usage, newAPIError := adaptor.DoResponse(c, httpResp, info)
-	if newAPIError != nil {
+	usage, FocusAPIError := adaptor.DoResponse(c, httpResp, info)
+	if FocusAPIError != nil {
 		// reset status code 重置状态码
-		service.ResetStatusCode(newAPIError, statusCodeMappingStr)
-		return newAPIError
+		service.ResetStatusCode(FocusAPIError, statusCodeMappingStr)
+		return FocusAPIError
 	}
 	service.PostTextConsumeQuota(c, info, usage.(*dto.Usage), nil)
 	return nil

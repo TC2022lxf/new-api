@@ -281,7 +281,7 @@ export function ApiKeysMutateDrawer({
           <SheetDescription className='pr-6 text-xs sm:text-sm'>
             {isUpdate
               ? t('Update the API key by providing necessary info.')
-              : t('Add a new API key by providing necessary info.')}{' '}
+              : t('Add a Focus API key by providing necessary info.')}{' '}
             {t("Click save when you're done.")}
           </SheetDescription>
         </SheetHeader>

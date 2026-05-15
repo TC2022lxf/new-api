@@ -2,7 +2,7 @@
 
 ![new-api](/web/default/public/logo.png)
 
-# New API
+# Focus API
 
 🍥 **次世代大規模モデルゲートウェイとAI資産管理システム**
 
@@ -38,7 +38,7 @@
     <img src="https://api.hellogithub.com/v1/widgets/recommend.svg?rid=539ac4217e69431684ad4a0bab768811&claim_uid=tbFPfKIDHpc4TzR" alt="Featured｜HelloGitHub" style="width: 250px; height: 54px;" width="250" height="54" />
   </a><!--
   --><a href="https://www.producthunt.com/products/new-api/launches/new-api?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-new-api" target="_blank" rel="noopener noreferrer">
-    <img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1047693&theme=light&t=1769577875005" alt="New API - All-in-one AI asset management gateway. | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" />
+    <img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1047693&theme=light&t=1769577875005" alt="Focus API - All-in-one AI asset management gateway. | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" />
   </a>
 </p>
 
@@ -77,7 +77,7 @@
   --><a href="https://bda.pku.edu.cn/" target="_blank">
     <img src="./docs/images/pku.png" alt="北京大学" height="80" />
   </a><!--
-  --><a href="https://www.compshare.cn/?ytag=GPU_yy_gh_newapi" target="_blank">
+  --><a href="https://www.compshare.cn/?ytag=GPU_yy_gh_FocusAPI" target="_blank">
     <img src="./docs/images/ucloud.png" alt="UCloud 優刻得" height="80" />
   </a><!--
   --><a href="https://www.aliyun.com/" target="_blank">
@@ -151,7 +151,7 @@ docker run --name new-api -d --restart always \
 
 🎉 デプロイが完了したら、`http://localhost:3000` にアクセスして使用を開始してください！
 
-📖 その他のデプロイ方法については[デプロイガイド](https://docs.newapi.pro/ja/docs/installation)を参照してください。
+📖 その他のデプロイ方法については[デプロイガイド](https://docs.FocusAPI.pro/ja/docs/installation)を参照してください。
 
 ---
 
@@ -159,7 +159,7 @@ docker run --name new-api -d --restart always \
 
 <div align="center">
 
-### 📖 [公式ドキュメント](https://docs.newapi.pro/ja/docs) | [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/QuantumNous/new-api)
+### 📖 [公式ドキュメント](https://docs.FocusAPI.pro/ja/docs) | [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/QuantumNous/new-api)
 
 </div>
 
@@ -167,17 +167,17 @@ docker run --name new-api -d --restart always \
 
 | カテゴリ | リンク |
 |------|------|
-| 🚀 デプロイガイド | [インストールドキュメント](https://docs.newapi.pro/ja/docs/installation) |
-| ⚙️ 環境設定 | [環境変数](https://docs.newapi.pro/ja/docs/installation/config-maintenance/environment-variables) |
-| 📡 APIドキュメント | [APIドキュメント](https://docs.newapi.pro/ja/docs/api) |
-| ❓ よくある質問 | [FAQ](https://docs.newapi.pro/ja/docs/support/faq) |
-| 💬 コミュニティ交流 | [交流チャネル](https://docs.newapi.pro/ja/docs/support/community-interaction) |
+| 🚀 デプロイガイド | [インストールドキュメント](https://docs.FocusAPI.pro/ja/docs/installation) |
+| ⚙️ 環境設定 | [環境変数](https://docs.FocusAPI.pro/ja/docs/installation/config-maintenance/environment-variables) |
+| 📡 APIドキュメント | [APIドキュメント](https://docs.FocusAPI.pro/ja/docs/api) |
+| ❓ よくある質問 | [FAQ](https://docs.FocusAPI.pro/ja/docs/support/faq) |
+| 💬 コミュニティ交流 | [交流チャネル](https://docs.FocusAPI.pro/ja/docs/support/community-interaction) |
 
 ---
 
 ## ✨ 主な機能
 
-> 詳細な機能については[機能説明](https://docs.newapi.pro/ja/docs/guide/wiki/basic-concepts/features-introduction)を参照してください。
+> 詳細な機能については[機能説明](https://docs.FocusAPI.pro/ja/docs/guide/wiki/basic-concepts/features-introduction)を参照してください。
 
 ### 🎨 コア機能
 
@@ -209,11 +209,11 @@ docker run --name new-api -d --restart always \
 ### 🚀 高度な機能
 
 **APIフォーマットサポート:**
-- ⚡ [OpenAI Responses](https://docs.newapi.pro/ja/docs/api/ai-model/chat/openai/create-response)
-- ⚡ [OpenAI Realtime API](https://docs.newapi.pro/ja/docs/api/ai-model/realtime/create-realtime-session)（Azureを含む）
-- ⚡ [Claude Messages](https://docs.newapi.pro/ja/docs/api/ai-model/chat/create-message)
-- ⚡ [Google Gemini](https://doc.newapi.pro/ja/api/google-gemini-chat)
-- 🔄 [Rerankモデル](https://docs.newapi.pro/ja/docs/api/ai-model/rerank/create-rerank)（Cohere、Jina）
+- ⚡ [OpenAI Responses](https://docs.FocusAPI.pro/ja/docs/api/ai-model/chat/openai/create-response)
+- ⚡ [OpenAI Realtime API](https://docs.FocusAPI.pro/ja/docs/api/ai-model/realtime/create-realtime-session)（Azureを含む）
+- ⚡ [Claude Messages](https://docs.FocusAPI.pro/ja/docs/api/ai-model/chat/create-message)
+- ⚡ [Google Gemini](https://doc.FocusAPI.pro/ja/api/google-gemini-chat)
+- 🔄 [Rerankモデル](https://docs.FocusAPI.pro/ja/docs/api/ai-model/rerank/create-rerank)（Cohere、Jina）
 
 **インテリジェントルーティング:**
 - ⚖️ チャネル重み付けランダム
@@ -256,17 +256,17 @@ docker run --name new-api -d --restart always \
 
 ## 🤖 モデルサポート
 
-> 詳細については[APIドキュメント - 中継インターフェース](https://docs.newapi.pro/ja/docs/api)
+> 詳細については[APIドキュメント - 中継インターフェース](https://docs.FocusAPI.pro/ja/docs/api)
 
 | モデルタイプ | 説明 | ドキュメント |
 |---------|------|------|
-| 🤖 OpenAI-Compatible | OpenAI互換モデル | [ドキュメント](https://docs.newapi.pro/ja/docs/api/ai-model/chat/openai/createchatcompletion) |
-| 🤖 OpenAI Responses | OpenAI Responsesフォーマット | [ドキュメント](https://docs.newapi.pro/ja/docs/api/ai-model/chat/openai/createresponse) |
-| 🎨 Midjourney-Proxy | [Midjourney-Proxy(Plus)](https://github.com/novicezk/midjourney-proxy) | [ドキュメント](https://doc.newapi.pro/api/midjourney-proxy-image) |
-| 🎵 Suno-API | [Suno API](https://github.com/Suno-API/Suno-API) | [ドキュメント](https://doc.newapi.pro/api/suno-music) |
-| 🔄 Rerank | Cohere、Jina | [ドキュメント](https://docs.newapi.pro/ja/docs/api/ai-model/rerank/creatererank) |
-| 💬 Claude | Messagesフォーマット | [ドキュメント](https://docs.newapi.pro/ja/docs/api/ai-model/chat/createmessage) |
-| 🌐 Gemini | Google Geminiフォーマット | [ドキュメント](https://docs.newapi.pro/ja/docs/api/ai-model/chat/gemini/geminirelayv1beta) |
+| 🤖 OpenAI-Compatible | OpenAI互換モデル | [ドキュメント](https://docs.FocusAPI.pro/ja/docs/api/ai-model/chat/openai/createchatcompletion) |
+| 🤖 OpenAI Responses | OpenAI Responsesフォーマット | [ドキュメント](https://docs.FocusAPI.pro/ja/docs/api/ai-model/chat/openai/createresponse) |
+| 🎨 Midjourney-Proxy | [Midjourney-Proxy(Plus)](https://github.com/novicezk/midjourney-proxy) | [ドキュメント](https://doc.FocusAPI.pro/api/midjourney-proxy-image) |
+| 🎵 Suno-API | [Suno API](https://github.com/Suno-API/Suno-API) | [ドキュメント](https://doc.FocusAPI.pro/api/suno-music) |
+| 🔄 Rerank | Cohere、Jina | [ドキュメント](https://docs.FocusAPI.pro/ja/docs/api/ai-model/rerank/creatererank) |
+| 💬 Claude | Messagesフォーマット | [ドキュメント](https://docs.FocusAPI.pro/ja/docs/api/ai-model/chat/createmessage) |
+| 🌐 Gemini | Google Geminiフォーマット | [ドキュメント](https://docs.FocusAPI.pro/ja/docs/api/ai-model/chat/gemini/geminirelayv1beta) |
 | 🔧 Dify | ChatFlowモード | - |
 | 🎯 カスタム | 完全な呼び出しアドレスの入力をサポート | - |
 
@@ -275,16 +275,16 @@ docker run --name new-api -d --restart always \
 <details>
 <summary>完全なインターフェースリストを表示</summary>
 
-- [チャットインターフェース (Chat Completions)](https://docs.newapi.pro/ja/docs/api/ai-model/chat/openai/createchatcompletion)
-- [レスポンスインターフェース (Responses)](https://docs.newapi.pro/ja/docs/api/ai-model/chat/openai/createresponse)
-- [イメージインターフェース (Image)](https://docs.newapi.pro/ja/docs/api/ai-model/images/openai/post-v1-images-generations)
-- [オーディオインターフェース (Audio)](https://docs.newapi.pro/ja/docs/api/ai-model/audio/openai/create-transcription)
-- [ビデオインターフェース (Video)](https://docs.newapi.pro/ja/docs/api/ai-model/audio/openai/createspeech)
-- [エンベッドインターフェース (Embeddings)](https://docs.newapi.pro/ja/docs/api/ai-model/embeddings/createembedding)
-- [再ランク付けインターフェース (Rerank)](https://docs.newapi.pro/ja/docs/api/ai-model/rerank/creatererank)
-- [リアルタイム対話インターフェース (Realtime)](https://docs.newapi.pro/ja/docs/api/ai-model/realtime/createrealtimesession)
-- [Claudeチャット](https://docs.newapi.pro/ja/docs/api/ai-model/chat/createmessage)
-- [Google Geminiチャット](https://docs.newapi.pro/ja/docs/api/ai-model/chat/gemini/geminirelayv1beta)
+- [チャットインターフェース (Chat Completions)](https://docs.FocusAPI.pro/ja/docs/api/ai-model/chat/openai/createchatcompletion)
+- [レスポンスインターフェース (Responses)](https://docs.FocusAPI.pro/ja/docs/api/ai-model/chat/openai/createresponse)
+- [イメージインターフェース (Image)](https://docs.FocusAPI.pro/ja/docs/api/ai-model/images/openai/post-v1-images-generations)
+- [オーディオインターフェース (Audio)](https://docs.FocusAPI.pro/ja/docs/api/ai-model/audio/openai/create-transcription)
+- [ビデオインターフェース (Video)](https://docs.FocusAPI.pro/ja/docs/api/ai-model/audio/openai/createspeech)
+- [エンベッドインターフェース (Embeddings)](https://docs.FocusAPI.pro/ja/docs/api/ai-model/embeddings/createembedding)
+- [再ランク付けインターフェース (Rerank)](https://docs.FocusAPI.pro/ja/docs/api/ai-model/rerank/creatererank)
+- [リアルタイム対話インターフェース (Realtime)](https://docs.FocusAPI.pro/ja/docs/api/ai-model/realtime/createrealtimesession)
+- [Claudeチャット](https://docs.FocusAPI.pro/ja/docs/api/ai-model/chat/createmessage)
+- [Google Geminiチャット](https://docs.FocusAPI.pro/ja/docs/api/ai-model/chat/gemini/geminirelayv1beta)
 
 </details>
 
@@ -327,7 +327,7 @@ docker run --name new-api -d --restart always \
 | `PYROSCOPE_BLOCK_RATE` | Pyroscope blockサンプリング率 | `5` |
 | `HOSTNAME` | Pyroscope用のホスト名タグ | `new-api` |
 
-📖 **完全な設定:** [環境変数ドキュメント](https://docs.newapi.pro/ja/docs/installation/config-maintenance/environment-variables)
+📖 **完全な設定:** [環境変数ドキュメント](https://docs.FocusAPI.pro/ja/docs/installation/config-maintenance/environment-variables)
 
 </details>
 
@@ -417,7 +417,7 @@ docker run --name new-api -d --restart always \
 | プロジェクト | 説明 |
 |------|------|
 | [neko-api-key-tool](https://github.com/Calcium-Ion/neko-api-key-tool) | キー使用量クォータ照会ツール |
-| [new-api-horizon](https://github.com/Calcium-Ion/new-api-horizon) | New API高性能最適化版 |
+| [new-api-horizon](https://github.com/Calcium-Ion/new-api-horizon) | Focus API高性能最適化版 |
 
 ---
 
@@ -427,10 +427,10 @@ docker run --name new-api -d --restart always \
 
 | リソース | リンク |
 |------|------|
-| 📘 よくある質問 | [FAQ](https://docs.newapi.pro/ja/docs/support/faq) |
-| 💬 コミュニティ交流 | [交流チャネル](https://docs.newapi.pro/ja/docs/support/community-interaction) |
-| 🐛 問題のフィードバック | [問題フィードバック](https://docs.newapi.pro/ja/docs/support/feedback-issues) |
-| 📚 完全なドキュメント | [公式ドキュメント](https://docs.newapi.pro/ja/docs) |
+| 📘 よくある質問 | [FAQ](https://docs.FocusAPI.pro/ja/docs/support/faq) |
+| 💬 コミュニティ交流 | [交流チャネル](https://docs.FocusAPI.pro/ja/docs/support/community-interaction) |
+| 🐛 問題のフィードバック | [問題フィードバック](https://docs.FocusAPI.pro/ja/docs/support/feedback-issues) |
+| 📚 完全なドキュメント | [公式ドキュメント](https://docs.FocusAPI.pro/ja/docs) |
 
 ### 🤝 貢献ガイド
 
@@ -465,11 +465,11 @@ docker run --name new-api -d --restart always \
 
 <div align="center">
 
-### 💖 New APIをご利用いただきありがとうございます
+### 💖 Focus APIをご利用いただきありがとうございます
 
 このプロジェクトがあなたのお役に立てたなら、ぜひ ⭐️ スターをください！
 
-**[公式ドキュメント](https://docs.newapi.pro/ja/docs)** • **[問題フィードバック](https://github.com/Calcium-Ion/new-api/issues)** • **[最新リリース](https://github.com/Calcium-Ion/new-api/releases)**
+**[公式ドキュメント](https://docs.FocusAPI.pro/ja/docs)** • **[問題フィードバック](https://github.com/Calcium-Ion/new-api/issues)** • **[最新リリース](https://github.com/Calcium-Ion/new-api/releases)**
 
 <sub>❤️ で構築された QuantumNous</sub>
 

@@ -40,7 +40,7 @@ import (
 type testResult struct {
 	context     *gin.Context
 	localErr    error
-	newAPIError *types.NewAPIError
+	FocusAPIError *types.FocusAPIError
 }
 
 func normalizeChannelTestEndpoint(channel *model.Channel, modelName, endpointType string) string {
@@ -147,7 +147,7 @@ func testChannel(channel *model.Channel, testModel string, endpointType string, 
 	if err != nil {
 		return testResult{
 			localErr:    err,
-			newAPIError: nil,
+			FocusAPIError: nil,
 		}
 	}
 	cache.WriteContext(c)
@@ -160,12 +160,12 @@ func testChannel(channel *model.Channel, testModel string, endpointType string, 
 	group, _ := model.GetUserGroup(1, false)
 	c.Set("group", group)
 
-	newAPIError := middleware.SetupContextForSelectedChannel(c, channel, testModel)
-	if newAPIError != nil {
+	FocusAPIError := middleware.SetupContextForSelectedChannel(c, channel, testModel)
+	if FocusAPIError != nil {
 		return testResult{
 			context:     c,
-			localErr:    newAPIError,
-			newAPIError: newAPIError,
+			localErr:    FocusAPIError,
+			FocusAPIError: FocusAPIError,
 		}
 	}
 
@@ -227,7 +227,7 @@ func testChannel(channel *model.Channel, testModel string, endpointType string, 
 		return testResult{
 			context:     c,
 			localErr:    err,
-			newAPIError: types.NewError(err, types.ErrorCodeGenRelayInfoFailed),
+			FocusAPIError: types.NewError(err, types.ErrorCodeGenRelayInfoFailed),
 		}
 	}
 
@@ -239,7 +239,7 @@ func testChannel(channel *model.Channel, testModel string, endpointType string, 
 		return testResult{
 			context:     c,
 			localErr:    err,
-			newAPIError: types.NewError(err, types.ErrorCodeJsonMarshalFailed),
+			FocusAPIError: types.NewError(err, types.ErrorCodeJsonMarshalFailed),
 		}
 	}
 
@@ -248,7 +248,7 @@ func testChannel(channel *model.Channel, testModel string, endpointType string, 
 		return testResult{
 			context:     c,
 			localErr:    err,
-			newAPIError: types.NewError(err, types.ErrorCodeChannelModelMappedError),
+			FocusAPIError: types.NewError(err, types.ErrorCodeChannelModelMappedError),
 		}
 	}
 
@@ -263,7 +263,7 @@ func testChannel(channel *model.Channel, testModel string, endpointType string, 
 		return testResult{
 			context:     c,
 			localErr:    fmt.Errorf("responses compaction test only supports openai/codex channels, got api type %d", apiType),
-			newAPIError: types.NewError(fmt.Errorf("unsupported api type: %d", apiType), types.ErrorCodeInvalidApiType),
+			FocusAPIError: types.NewError(fmt.Errorf("unsupported api type: %d", apiType), types.ErrorCodeInvalidApiType),
 		}
 	}
 	adaptor := relay.GetAdaptor(apiType)
@@ -271,7 +271,7 @@ func testChannel(channel *model.Channel, testModel string, endpointType string, 
 		return testResult{
 			context:     c,
 			localErr:    fmt.Errorf("invalid api type: %d, adaptor is nil", apiType),
-			newAPIError: types.NewError(fmt.Errorf("invalid api type: %d, adaptor is nil", apiType), types.ErrorCodeInvalidApiType),
+			FocusAPIError: types.NewError(fmt.Errorf("invalid api type: %d, adaptor is nil", apiType), types.ErrorCodeInvalidApiType),
 		}
 	}
 
@@ -285,7 +285,7 @@ func testChannel(channel *model.Channel, testModel string, endpointType string, 
 		return testResult{
 			context:     c,
 			localErr:    err,
-			newAPIError: types.NewError(err, types.ErrorCodeModelPriceError, types.ErrOptionWithStatusCode(http.StatusBadRequest)),
+			FocusAPIError: types.NewError(err, types.ErrorCodeModelPriceError, types.ErrOptionWithStatusCode(http.StatusBadRequest)),
 		}
 	}
 
@@ -302,7 +302,7 @@ func testChannel(channel *model.Channel, testModel string, endpointType string, 
 			return testResult{
 				context:     c,
 				localErr:    errors.New("invalid embedding request type"),
-				newAPIError: types.NewError(errors.New("invalid embedding request type"), types.ErrorCodeConvertRequestFailed),
+				FocusAPIError: types.NewError(errors.New("invalid embedding request type"), types.ErrorCodeConvertRequestFailed),
 			}
 		}
 	case relayconstant.RelayModeImagesGenerations:
@@ -313,7 +313,7 @@ func testChannel(channel *model.Channel, testModel string, endpointType string, 
 			return testResult{
 				context:     c,
 				localErr:    errors.New("invalid image request type"),
-				newAPIError: types.NewError(errors.New("invalid image request type"), types.ErrorCodeConvertRequestFailed),
+				FocusAPIError: types.NewError(errors.New("invalid image request type"), types.ErrorCodeConvertRequestFailed),
 			}
 		}
 	case relayconstant.RelayModeRerank:
@@ -324,7 +324,7 @@ func testChannel(channel *model.Channel, testModel string, endpointType string, 
 			return testResult{
 				context:     c,
 				localErr:    errors.New("invalid rerank request type"),
-				newAPIError: types.NewError(errors.New("invalid rerank request type"), types.ErrorCodeConvertRequestFailed),
+				FocusAPIError: types.NewError(errors.New("invalid rerank request type"), types.ErrorCodeConvertRequestFailed),
 			}
 		}
 	case relayconstant.RelayModeResponses:
@@ -335,7 +335,7 @@ func testChannel(channel *model.Channel, testModel string, endpointType string, 
 			return testResult{
 				context:     c,
 				localErr:    errors.New("invalid response request type"),
-				newAPIError: types.NewError(errors.New("invalid response request type"), types.ErrorCodeConvertRequestFailed),
+				FocusAPIError: types.NewError(errors.New("invalid response request type"), types.ErrorCodeConvertRequestFailed),
 			}
 		}
 	case relayconstant.RelayModeResponsesCompact:
@@ -354,7 +354,7 @@ func testChannel(channel *model.Channel, testModel string, endpointType string, 
 			return testResult{
 				context:     c,
 				localErr:    errors.New("invalid response compaction request type"),
-				newAPIError: types.NewError(errors.New("invalid response compaction request type"), types.ErrorCodeConvertRequestFailed),
+				FocusAPIError: types.NewError(errors.New("invalid response compaction request type"), types.ErrorCodeConvertRequestFailed),
 			}
 		}
 	default:
@@ -365,7 +365,7 @@ func testChannel(channel *model.Channel, testModel string, endpointType string, 
 			return testResult{
 				context:     c,
 				localErr:    errors.New("invalid general request type"),
-				newAPIError: types.NewError(errors.New("invalid general request type"), types.ErrorCodeConvertRequestFailed),
+				FocusAPIError: types.NewError(errors.New("invalid general request type"), types.ErrorCodeConvertRequestFailed),
 			}
 		}
 	}
@@ -374,7 +374,7 @@ func testChannel(channel *model.Channel, testModel string, endpointType string, 
 		return testResult{
 			context:     c,
 			localErr:    err,
-			newAPIError: types.NewError(err, types.ErrorCodeConvertRequestFailed),
+			FocusAPIError: types.NewError(err, types.ErrorCodeConvertRequestFailed),
 		}
 	}
 	jsonData, err := common.Marshal(convertedRequest)
@@ -382,7 +382,7 @@ func testChannel(channel *model.Channel, testModel string, endpointType string, 
 		return testResult{
 			context:     c,
 			localErr:    err,
-			newAPIError: types.NewError(err, types.ErrorCodeJsonMarshalFailed),
+			FocusAPIError: types.NewError(err, types.ErrorCodeJsonMarshalFailed),
 		}
 	}
 
@@ -391,7 +391,7 @@ func testChannel(channel *model.Channel, testModel string, endpointType string, 
 	//	return testResult{
 	//		context:     c,
 	//		localErr:    err,
-	//		newAPIError: types.NewError(err, types.ErrorCodeConvertRequestFailed),
+	//		FocusAPIError: types.NewError(err, types.ErrorCodeConvertRequestFailed),
 	//	}
 	//}
 
@@ -402,13 +402,13 @@ func testChannel(channel *model.Channel, testModel string, endpointType string, 
 				return testResult{
 					context:     c,
 					localErr:    fixedErr,
-					newAPIError: relaycommon.NewAPIErrorFromParamOverride(fixedErr),
+					FocusAPIError: relaycommon.FocusAPIErrorFromParamOverride(fixedErr),
 				}
 			}
 			return testResult{
 				context:     c,
 				localErr:    err,
-				newAPIError: types.NewError(err, types.ErrorCodeChannelParamOverrideInvalid),
+				FocusAPIError: types.NewError(err, types.ErrorCodeChannelParamOverrideInvalid),
 			}
 		}
 	}
@@ -420,7 +420,7 @@ func testChannel(channel *model.Channel, testModel string, endpointType string, 
 		return testResult{
 			context:     c,
 			localErr:    err,
-			newAPIError: types.NewOpenAIError(err, types.ErrorCodeDoRequestFailed, http.StatusInternalServerError),
+			FocusAPIError: types.NewOpenAIError(err, types.ErrorCodeDoRequestFailed, http.StatusInternalServerError),
 		}
 	}
 	var httpResp *http.Response
@@ -441,7 +441,7 @@ func testChannel(channel *model.Channel, testModel string, endpointType string, 
 			return testResult{
 				context:     c,
 				localErr:    err,
-				newAPIError: types.NewOpenAIError(err, types.ErrorCodeBadResponse, http.StatusInternalServerError),
+				FocusAPIError: types.NewOpenAIError(err, types.ErrorCodeBadResponse, http.StatusInternalServerError),
 			}
 		}
 	}
@@ -450,7 +450,7 @@ func testChannel(channel *model.Channel, testModel string, endpointType string, 
 		return testResult{
 			context:     c,
 			localErr:    respErr,
-			newAPIError: respErr,
+			FocusAPIError: respErr,
 		}
 	}
 	usage, usageErr := coerceTestUsage(usageA, isStream, info.GetEstimatePromptTokens())
@@ -458,7 +458,7 @@ func testChannel(channel *model.Channel, testModel string, endpointType string, 
 		return testResult{
 			context:     c,
 			localErr:    usageErr,
-			newAPIError: types.NewOpenAIError(usageErr, types.ErrorCodeBadResponseBody, http.StatusInternalServerError),
+			FocusAPIError: types.NewOpenAIError(usageErr, types.ErrorCodeBadResponseBody, http.StatusInternalServerError),
 		}
 	}
 	result := w.Result()
@@ -467,14 +467,14 @@ func testChannel(channel *model.Channel, testModel string, endpointType string, 
 		return testResult{
 			context:     c,
 			localErr:    err,
-			newAPIError: types.NewOpenAIError(err, types.ErrorCodeReadResponseBodyFailed, http.StatusInternalServerError),
+			FocusAPIError: types.NewOpenAIError(err, types.ErrorCodeReadResponseBodyFailed, http.StatusInternalServerError),
 		}
 	}
 	if bodyErr := validateTestResponseBody(respBody, isStream); bodyErr != nil {
 		return testResult{
 			context:     c,
 			localErr:    bodyErr,
-			newAPIError: types.NewOpenAIError(bodyErr, types.ErrorCodeBadResponseBody, http.StatusInternalServerError),
+			FocusAPIError: types.NewOpenAIError(bodyErr, types.ErrorCodeBadResponseBody, http.StatusInternalServerError),
 		}
 	}
 	info.SetEstimatePromptTokens(usage.PromptTokens)
@@ -501,7 +501,7 @@ func testChannel(channel *model.Channel, testModel string, endpointType string, 
 	return testResult{
 		context:     c,
 		localErr:    nil,
-		newAPIError: nil,
+		FocusAPIError: nil,
 	}
 }
 
@@ -842,8 +842,8 @@ func TestChannel(c *gin.Context) {
 			"message": result.localErr.Error(),
 			"time":    0.0,
 		}
-		if result.newAPIError != nil {
-			resp["error_code"] = result.newAPIError.GetErrorCode()
+		if result.FocusAPIError != nil {
+			resp["error_code"] = result.FocusAPIError.GetErrorCode()
 		}
 		c.JSON(http.StatusOK, resp)
 		return
@@ -852,12 +852,12 @@ func TestChannel(c *gin.Context) {
 	milliseconds := tok.Sub(tik).Milliseconds()
 	go channel.UpdateResponseTime(milliseconds)
 	consumedTime := float64(milliseconds) / 1000.0
-	if result.newAPIError != nil {
+	if result.FocusAPIError != nil {
 		c.JSON(http.StatusOK, gin.H{
 			"success":    false,
-			"message":    result.newAPIError.Error(),
+			"message":    result.FocusAPIError.Error(),
 			"time":       consumedTime,
-			"error_code": result.newAPIError.GetErrorCode(),
+			"error_code": result.FocusAPIError.GetErrorCode(),
 		})
 		return
 	}
@@ -907,28 +907,28 @@ func testAllChannels(notify bool) error {
 			milliseconds := tok.Sub(tik).Milliseconds()
 
 			shouldBanChannel := false
-			newAPIError := result.newAPIError
+			FocusAPIError := result.FocusAPIError
 			// request error disables the channel
-			if newAPIError != nil {
-				shouldBanChannel = service.ShouldDisableChannel(result.newAPIError)
+			if FocusAPIError != nil {
+				shouldBanChannel = service.ShouldDisableChannel(result.FocusAPIError)
 			}
 
 			// 当错误检查通过，才检查响应时间
 			if common.AutomaticDisableChannelEnabled && !shouldBanChannel {
 				if milliseconds > disableThreshold {
 					err := fmt.Errorf("响应时间 %.2fs 超过阈值 %.2fs", float64(milliseconds)/1000.0, float64(disableThreshold)/1000.0)
-					newAPIError = types.NewOpenAIError(err, types.ErrorCodeChannelResponseTimeExceeded, http.StatusRequestTimeout)
+					FocusAPIError = types.NewOpenAIError(err, types.ErrorCodeChannelResponseTimeExceeded, http.StatusRequestTimeout)
 					shouldBanChannel = true
 				}
 			}
 
 			// disable channel
 			if isChannelEnabled && shouldBanChannel && channel.GetAutoBan() {
-				processChannelError(result.context, *types.NewChannelError(channel.Id, channel.Type, channel.Name, channel.ChannelInfo.IsMultiKey, common.GetContextKeyString(result.context, constant.ContextKeyChannelKey), channel.GetAutoBan()), newAPIError)
+				processChannelError(result.context, *types.NewChannelError(channel.Id, channel.Type, channel.Name, channel.ChannelInfo.IsMultiKey, common.GetContextKeyString(result.context, constant.ContextKeyChannelKey), channel.GetAutoBan()), FocusAPIError)
 			}
 
 			// enable channel
-			if !isChannelEnabled && service.ShouldEnableChannel(newAPIError, channel.Status) {
+			if !isChannelEnabled && service.ShouldEnableChannel(FocusAPIError, channel.Status) {
 				service.EnableChannel(channel.Id, common.GetContextKeyString(result.context, constant.ContextKeyChannelKey), channel.Name)
 			}
 
