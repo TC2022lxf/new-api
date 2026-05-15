@@ -49,7 +49,7 @@ func TestGetWaffoPancakePayMoney(t *testing.T) {
 		int(common.QuotaPerUnit * 3): 0.5,
 		20:                           0,
 	}
-	require.NoError(t, common.UpdateTopupGroupRatioByJSONString(`{"default":1,"vip":1.2}`))
+	require.NoError(t, common.UpdateTopupGroupRatioByJSONString(`{"default":1,"limited_offer":1.2}`))
 
 	testCases := []struct {
 		name             string
@@ -61,14 +61,14 @@ func TestGetWaffoPancakePayMoney(t *testing.T) {
 		{
 			name:             "currency display applies unit price group ratio and discount",
 			amount:           10,
-			group:            "vip",
+			group:            "limited_offer",
 			quotaDisplayType: operation_setting.QuotaDisplayTypeUSD,
 			expected:         24,
 		},
 		{
 			name:             "tokens display converts quota to display units before pricing",
 			amount:           int64(common.QuotaPerUnit * 3),
-			group:            "vip",
+			group:            "limited_offer",
 			quotaDisplayType: operation_setting.QuotaDisplayTypeTokens,
 			expected:         4.5,
 		},

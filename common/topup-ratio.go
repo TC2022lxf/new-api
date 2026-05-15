@@ -6,9 +6,9 @@ import (
 )
 
 var topupGroupRatio = map[string]float64{
-	"default": 1,
-	"vip":     1,
-	"svip":    1,
+	"default":       1,
+	"limited_offer": 1,
+	"free":          1,
 }
 var topupGroupRatioMutex sync.RWMutex
 
